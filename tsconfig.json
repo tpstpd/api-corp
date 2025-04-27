@@ -1,0 +1,14 @@
+{
+    "compilerOptions": {
+      "target": "ES2020",              // 최신 자바스크립트로 변환
+      "module": "CommonJS",             // CommonJS 방식으로 변환 (require 지원)
+      "moduleResolution": "node",       // node 방식 모듈 찾기
+      "esModuleInterop": true,          // import express from "express" 가능하게
+      "skipLibCheck": true,             // 타입검사 빠르게
+      "forceConsistentCasingInFileNames": true, // 대소문자 일관성 체크
+      "strict": true                 // 엄격한 타입 검사
+      
+    },
+    "include": ["api/**/*.ts"]
+  }
+  
