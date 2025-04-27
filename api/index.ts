@@ -1,6 +1,7 @@
 import express from 'express';
 import axios from 'axios';
 import { parseStringPromise, Builder } from 'xml2js'; // XML 파싱용
+import qs from 'qs'; //쿼리 스트링 직렬화용
 
 const app = express();
 
@@ -16,10 +17,14 @@ app.get("/corp", async (req, res) => {
         numOfRows,
         pageNo,
         resultType,
-        corpNm, // ✨ 인코딩 없이 바로 전달
+        corpNm, //인코딩 없이 그대로 전달
       },
       headers: {
         'Content-Type': 'application/xml;charset=utf-8',
+      },
+      //안전한 인코딩을 위해 paramsSerializer 설정
+      paramsSerializer: params => {
+        return qs.stringify(params, { encode: true });
       }
     });
 
@@ -92,5 +97,5 @@ app.get("/corp", async (req, res) => {
 });
 
 app.listen(3000, () => {
-  console.log(`서버가 http://127.0.0.1:3000/corp?pageNo=1&numOfRows=1&resultType=xml&corpNm=%EC%95%A0%ED%94%8C%EC%BD%94%EB%A6%AC%EC%95%84%20%EC%9C%A0%ED%95%9C%ED%9A%8C%EC%82%AC&serviceKey=ZqDMcB9z2xwM8pqNALpRI0Dy4jqugWQPfSBFwEWeOe6GXmHv%2FJOjl0xmZKTME66FX%2FSOUwK9vjShZ7ms04STmA%3D%3D 를 넣으면 실행됩니다!`);
+  console.log(`서버가 http://127.0.0.1:3000/corp?pageNo=1&numOfRows=1&resultType=xml&corpNm=%EC%82%BC%EC%84%B1%EC%A0%84%EC%9E%90(%EC%A3%BC)&serviceKey=ZqDMcB9z2xwM8pqNALpRI0Dy4jqugWQPfSBFwEWeOe6GXmHv%2FJOjl0xmZKTME66FX%2FSOUwK9vjShZ7ms04STmA%3D%3D 로 테스트 가능합니다!`);
 });
