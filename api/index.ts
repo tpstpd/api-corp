@@ -10,16 +10,13 @@ app.get("/corp", async (req, res) => {
   const api_url = "http://apis.data.go.kr/1160100/service/GetCorpBasicInfoService_V2/getCorpOutline_V2";
 
   try {
-    // corpNm이 있을 경우, URL 인코딩 처리
-    const encodedCorpNm = corpNm ? encodeURIComponent(corpNm as string) : undefined;
-
     const response = await axios.get(api_url, {
       params: {
         serviceKey,
         numOfRows,
         pageNo,
         resultType,
-        corpNm: encodedCorpNm,  // 인코딩된 corpNm 사용
+        corpNm, // ✨ 인코딩 없이 바로 전달
       },
       headers: {
         'Content-Type': 'application/xml;charset=utf-8',
@@ -95,5 +92,5 @@ app.get("/corp", async (req, res) => {
 });
 
 app.listen(3000, () => {
-  console.log(`서버가 http://127.0.0.1:3000/corp?pageNo=1&numOfRows=1&resultType=xml&corpNm=%EB%A9%94%EB%A6%AC%EC%B8%A0%EC%9E%90%EC%82%B0%EC%9A%B4%EC%9A%A9&serviceKey=ZqDMcB9z2xwM8pqNALpRI0Dy4jqugWQPfSBFwEWeOe6GXmHv%2FJOjl0xmZKTME66FX%2FSOUwK9vjShZ7ms04STmA%3D%3D 를 넣으면 실행됩니다!`);
+  console.log(`서버가 http://127.0.0.1:3000/corp?pageNo=1&numOfRows=1&resultType=xml&corpNm=%EC%95%A0%ED%94%8C%EC%BD%94%EB%A6%AC%EC%95%84%20%EC%9C%A0%ED%95%9C%ED%9A%8C%EC%82%AC&serviceKey=ZqDMcB9z2xwM8pqNALpRI0Dy4jqugWQPfSBFwEWeOe6GXmHv%2FJOjl0xmZKTME66FX%2FSOUwK9vjShZ7ms04STmA%3D%3D 를 넣으면 실행됩니다!`);
 });
